@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:18-alpine3.14 as build-stage
 
 WORKDIR /app
 
@@ -17,3 +17,22 @@ RUN npm run build
 EXPOSE 3000
 
 CMD ["node", "./dist/main.js"]
+
+
+# production stage
+
+FROM node:18-alpine3.14 as production-stage
+
+WORKDIR /app
+
+COPY --from=build-stage /app/package.json /app/package.json
+
+COPY --from=build-stage /app/dist /app
+
+RUN npm config set registry https://registry.npmmirror.com/
+
+RUN  npm install --production
+
+EXPOSE 3000
+
+CMD ["node", "/app/main.js"]
