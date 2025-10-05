@@ -2,6 +2,13 @@ FROM node:18-alpine3.14 as build-stage
 
 WORKDIR /app
 
+ARG aaa
+
+ARG bbb
+
+ENV aaa=${aaa}\
+    bbb=${bbb}
+
 COPY package.json .
 
 COPY *.lock .
