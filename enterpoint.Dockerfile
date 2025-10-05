@@ -4,6 +4,6 @@ FROM node:18-alpine3.14
 
 ENTRYPOINT  ["echo", "entrypoint", "无罪释放"]
 
-
+CMD  ["无法无天"]
 
  
